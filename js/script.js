@@ -11,3 +11,34 @@ o raggiunge il numero massimo possibile di numeri consentiti.
 Al termine della partita il software deve comunicare il punteggio,
 cioè il numero di volte che l’utente ha inserito un numero consentito.
 */
+
+// 1. Creiamo una funzione per generare un certo numero di numeri casuali,
+// compresi tra un valore minimo e uno massimo
+
+
+var quanteBombe = 10;
+var intMin = 1;
+var intMax = 10;
+
+function genNumInt(num, min, max) {
+
+  var listaNum = [];
+
+    for (var i = 1; i < num + 1; i++) {
+
+      var randomNum = Math.floor(Math.random() * (max - min + 1)) + min;
+
+      while (listaNum.includes(randomNum)) {
+        var randomNum = Math.floor(Math.random() * (max - min + 1)) + min;
+      }
+
+      listaNum.push(randomNum);
+
+    }
+
+  return listaNum;
+
+}
+
+var numeri = genNumInt(quanteBombe, intMin, intMax);
+console.log(numeri);

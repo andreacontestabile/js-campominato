@@ -14,9 +14,9 @@ cioè il numero di volte che l’utente ha inserito un numero consentito.
 
 
 // 0. Inizializziamo delle variabili relative al numero di bombe presenti e al range dei numeri
-var bombe = 16;
+var bombe = 1;
 var intMin = 1;
-var intMax = 100;
+var intMax;
 
 /* BONUS: (da fare solo se funziona tutto il resto)
 all’inizio il software richiede anche una difficoltà all’utente che cambia il range di numeri casuali:
@@ -28,10 +28,15 @@ do {
   var diff = prompt("Scegli la difficoltà del gioco (0: Normale, 1: Difficile, 2: Molto difficile)");
 } while (diff < 0 || diff > 2)
 
-if (diff == 1) {
-  intMax = 80;
-} else if (diff == 2) {
-  intMax = 50;
+switch (diff) {
+  case 1:
+    intMax = 80;
+    break;
+  case 2:
+    intMax = 50;
+    break;
+  default:
+    intMax = 100;
 }
 
 // 1. Creiamo una funzione per generare un certo numero di numeri casuali,
@@ -43,23 +48,17 @@ function genNumInt(num, min, max) {
 
     for (var i = 1; i <= num; i++) {
 
-      var randomNum = Math.floor(Math.random() * (max - min + 1)) + min;
-
       do {
-
         var randomNum = Math.floor(Math.random() * (max - min + 1)) + min;
-
       } while (listaNum.includes(randomNum));
 
       listaNum.push(randomNum);
-
     }
 
   return listaNum;
-
 }
 
-
+// Chiamiamo la funzione e salviamo l'array risultante in una variabile
 var numeri = genNumInt(bombe, intMin, intMax);
 console.log(numeri);
 
@@ -69,13 +68,13 @@ console.log(numeri);
 var listaNumUtente = [];
 // Creiamo una variabile per tracciare se l'utente ha perso
 var utenteHaPerso = false;
-// Chiediamo per (intMax - bombe) volte di inserire un numero
+// Chiediamo per (intMax - bombe) volte di inserire un numero (interrompiamo il ciclo se l'utente ha perso)
 for (var i = 1; (i <= (intMax - bombe)) && (utenteHaPerso == false); i++) {
+
   do {
-
     var numUtente = parseInt(prompt("Inserisci un numero tra " + intMin + " e " + intMax));
-
   } while (listaNumUtente.includes(numUtente) || isNaN(numUtente) || numUtente < intMin || numUtente > intMax);
+
 // Se il numero è incluso nell'array dei numeri "bomba", l'utente ha perso
   if (numeri.includes(numUtente)) {
 
@@ -84,9 +83,7 @@ for (var i = 1; (i <= (intMax - bombe)) && (utenteHaPerso == false); i++) {
   } else {
 
     listaNumUtente.push(numUtente);
-
   }
-
 }
 
 console.log(listaNumUtente);

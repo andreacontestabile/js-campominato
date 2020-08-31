@@ -12,13 +12,30 @@ Al termine della partita il software deve comunicare il punteggio,
 cioè il numero di volte che l’utente ha inserito un numero consentito.
 */
 
+
+// 0. Inizializziamo delle variabili relative al numero di bombe presenti e al range dei numeri
+var bombe = 16;
+var intMin = 1;
+var intMax = 100;
+
+/* BONUS: (da fare solo se funziona tutto il resto)
+all’inizio il software richiede anche una difficoltà all’utente che cambia il range di numeri casuali:
+con difficoltà 0 => tra 1 e 100
+con difficoltà 1 =>  tra 1 e 80
+con difficoltà 2 => tra 1 e 50 */
+
+do {
+  var diff = prompt("Scegli la difficoltà del gioco (0: Normale, 1: Difficile, 2: Molto difficile)");
+} while (diff < 0 || diff > 2)
+
+if (diff == 1) {
+  intMax = 80;
+} else if (diff == 2) {
+  intMax = 50;
+}
+
 // 1. Creiamo una funzione per generare un certo numero di numeri casuali,
 // compresi tra un valore minimo e uno massimo
-
-
-var bombe = 1;
-var intMin = 1;
-var intMax = 5;
 
 function genNumInt(num, min, max) {
 
